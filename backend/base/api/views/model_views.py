@@ -1,10 +1,7 @@
 from rest_framework import viewsets
-from rest_framework.views import APIView
-from rest_framework.response import Response
-from rest_framework import status
 
 from base.models import Saloon, Worker, Car, Reservation, Address, Model, Brand
-from .serializers import SaloonSerializer, WorkerSerializer, CarSerializer, ReservationSerializer, AddressSerializer, ModelSerializer, BrandSerializer, SaloonListSerializer
+from base.api.serializers.model_serializers import SaloonSerializer, WorkerSerializer, CarSerializer, ReservationSerializer, AddressSerializer, ModelSerializer, BrandSerializer
 
 class SaloonViewSet(viewsets.ModelViewSet):
     queryset = Saloon.objects.all()
@@ -33,9 +30,3 @@ class ModelViewSet(viewsets.ModelViewSet):
 class BrandViewSet(viewsets.ModelViewSet):
     queryset = Brand.objects.all()
     serializer_class = BrandSerializer
-
-class SaloonListView(APIView):
-    def get(self, request):
-        saloons = Saloon.objects.all()
-        serializer = SaloonListSerializer(saloons, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)

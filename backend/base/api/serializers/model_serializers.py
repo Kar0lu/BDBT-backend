@@ -40,24 +40,3 @@ class BrandSerializer(serializers.ModelSerializer):
     class Meta:
         model = Brand
         fields = '__all__'
-
-class SaloonSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Saloon
-        fields = '__all__'
-
-class SaloonListSerializer(serializers.ModelSerializer):
-
-    employees = serializers.SerializerMethodField()
-    city = serializers.SerializerMethodField()
-
-    class Meta:
-        model = Saloon
-        fields = ['id', 'name', 'owner', 'city', 'employees']
-
-    def get_employees(self, obj):
-        return Worker.objects.filter(saloon=obj).count()
-        
-    def get_city(self, obj):
-        # Return the city from the related Address model
-        return obj.address.city if obj.address else None

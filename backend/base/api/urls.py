@@ -1,7 +1,8 @@
 from django.urls import path, include
 from . import views
 
-from .views import SaloonViewSet, WorkerViewSet, CarViewSet, ReservationViewSet, AddressViewSet, ModelViewSet, BrandViewSet, SaloonListView
+from .views.model_views import SaloonViewSet, WorkerViewSet, CarViewSet, ReservationViewSet, AddressViewSet, ModelViewSet, BrandViewSet
+from .views.saloon_views import GetSaloonsView, CreateSaloonView, EditSaloonView, DeleteSaloonView
 from rest_framework.routers import DefaultRouter
 
 router = DefaultRouter()
@@ -15,5 +16,30 @@ router.register(r'brands', BrandViewSet, basename='brand')
 
 urlpatterns = [
     path('test/', include(router.urls)),
-    path('get/saloons/', SaloonListView.as_view(), name='saloon-list'),
+
+    path('get/saloons', GetSaloonsView.as_view(), name='get-saloons'),
+    path('create/saloon', CreateSaloonView.as_view(), name='create-saloon'),
+    path('edit/saloon', EditSaloonView.as_view(), name='edit-saloon'),
+    path('delete/saloon', DeleteSaloonView.as_view(), name='delete-saloon'),
+
+    # path('get/cars', GetSaloonsView.as_view(), name='get-saloons'),
+    # path('create/car', CreateSaloonView.as_view(), name='create-saloon'),
+    # path('edit/car', EditSaloonView.as_view(), name='edit-saloon'),
+    # path('delete/car', DeleteSaloonView.as_view(), name='delete-saloon'),
+
+    # path('get/workers', GetSaloonsView.as_view(), name='get-saloons'),
+    # path('create/worker', CreateSaloonView.as_view(), name='create-saloon'),
+    # path('edit/worker', EditSaloonView.as_view(), name='edit-saloon'),
+    # path('delete/worker', DeleteSaloonView.as_view(), name='delete-saloon'),
+
+    # path('get/reservations', GetSaloonsView.as_view(), name='get-saloons'),
+    # path('create/reservation', CreateSaloonView.as_view(), name='create-saloon'),
+    # path('edit/reservation', EditSaloonView.as_view(), name='edit-saloon'),
+    # path('delete/reservation', DeleteSaloonView.as_view(), name='delete-saloon'),
+
+    # path('get/users', GetSaloonsView.as_view(), name='get-saloons'),
+    # path('create/user', CreateSaloonView.as_view(), name='create-saloon'),
+    # path('edit/user', EditSaloonView.as_view(), name='edit-saloon'),
+    # path('delete/user', DeleteSaloonView.as_view(), name='delete-saloon'),
+
 ]

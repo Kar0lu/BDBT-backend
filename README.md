@@ -3,7 +3,7 @@
 - Karol Godlewski
 ## Running server
 ```bash
-cd backend
 pipenv shell
+cd backend
 python manage.py runserver
 ```
