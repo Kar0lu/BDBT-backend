@@ -24,6 +24,11 @@ class BrandPickerSerializer(serializers.ModelSerializer):
         model = Brand
         fields = ['id', 'name']
 
+class WorkerPickerSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Worker
+        fields = ['id', 'name', 'lastname']
 
 
 

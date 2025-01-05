@@ -55,19 +55,31 @@ class GetReservationsView(APIView):
 #         except Exception as e:
 #             return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-# class EditReservationView(APIView):
-#     def patch(self, request):
-#         data = request.data
-#         try:
-#             reservation = Reservation.objects.get(id=data.get('id'))
-#         except Reservation.DoesNotExist:
-#             return Response({"error": "Reservation not found."}, status=status.HTTP_404_NOT_FOUND)
+class EditReservationView(APIView):
+    def patch(self, request):
+        data = request.data
+        try:
+            reservation = Reservation.objects.get(id=data.get('id'))
+        except Reservation.DoesNotExist:
+            return Response({"error": "Reservation not found."}, status=status.HTTP_404_NOT_FOUND)
 
-#         serializer = ReservationSerializer(reservation, data=data, partial=True)
-#         if serializer.is_valid():
-#             serializer.save()
-#             return Response(serializer.data, status=status.HTTP_200_OK)
-#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        # Fetch the worker from the request data
+        worker_id = data.get('worker')
+        if worker_id:
+            try:
+                worker = Worker.objects.get(id=worker_id)
+                reservation.worker = worker
+            except Worker.DoesNotExist:
+                return Response({"error": "Worker not found."}, status=status.HTTP_404_NOT_FOUND)
+
+        # Now update the reservation
+        serializer = ReservationSerializer(reservation, data=data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 class DeleteReservationView(APIView):
     def delete(self, request):
