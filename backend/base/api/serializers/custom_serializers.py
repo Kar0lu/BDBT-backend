@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from base.models import Saloon, Worker, Car, Reservation, CustomUser
+from base.models import Saloon, Worker, Car, Reservation, CustomUser, Model, Brand
 
 class SaloonPickerSerializer(serializers.ModelSerializer):
 
@@ -11,6 +11,22 @@ class SaloonPickerSerializer(serializers.ModelSerializer):
 
     def get_city(self, obj):
         return obj.address.city if obj.address else None
+
+class ModelPickerSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Model
+        fields = ['id', 'name']
+
+class BrandPickerSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Brand
+        fields = ['id', 'name']
+
+
+
+
 
 class SaloonDataGridSerializer(serializers.ModelSerializer):
 
@@ -37,7 +53,7 @@ class CarDataGridSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Car
-        fields = ['id', 'brand', 'model', 'price', 'availability', 'saloon', 'saloon_name', 'saloon_city', 'number_of_units']
+        fields = ['id', 'brand', 'model', 'price', 'availability', 'saloon', 'saloon_name', 'saloon_city', 'number_of_units', 'description']
 
     def get_brand(self, obj):
         return obj.model.brand.name if obj.model.brand else None
@@ -80,3 +96,30 @@ class ReservationDataGridSerializer(serializers.ModelSerializer):
 
     def get_date(self, obj):
         return obj.date.strftime('%d-%m-%Y') if obj.date else None
+
+class CarSearchSerializer(serializers.ModelSerializer):
+
+    brand = serializers.SerializerMethodField()
+    model = serializers.SerializerMethodField()
+    saloon_name = serializers.SerializerMethodField()
+    saloon_city = serializers.SerializerMethodField()
+    number_of_units = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Car
+        fields = ['id', 'brand', 'model', 'price', 'availability', 'saloon', 'saloon_name', 'saloon_city', 'number_of_units', 'description']
+
+    def get_brand(self, obj):
+        return obj.model.brand.name if obj.model.brand else None
+
+    def get_model(self, obj):
+        return obj.model.name if obj.model else None
+
+    def get_saloon_name(self, obj):
+        return obj.saloon.name if obj.saloon else None
+
+    def get_saloon_city(self, obj):
+        return obj.saloon.address.city if obj.saloon else None
+    
+    def get_number_of_units(self, obj):
+        return Car.objects.filter(model=obj.model, availability=True).count()

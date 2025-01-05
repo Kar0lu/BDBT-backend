@@ -12,12 +12,6 @@ class GetCarsView(APIView):
         serializer = CarDataGridSerializer(cars, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
-class GetSaloonPickerView(APIView):
-    def get(self, request):
-        saloons = Saloon.objects.all()
-        serializer = SaloonPickerSerializer(saloons, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
-
 class EditCarView(APIView):
     def patch(self, request):
         data = request.data

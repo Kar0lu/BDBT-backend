@@ -2,9 +2,14 @@ from django.urls import path, include
 from . import views
 
 from .views.model_views import SaloonViewSet, WorkerViewSet, CarViewSet, ReservationViewSet, AddressViewSet, ModelViewSet, BrandViewSet
+from .views.picker_views import  GetSaloonPickerView, GetBrandPickerView, GetModelPickerView
+from .views.search_views import SearchCarsView
+
 from .views.saloon_views import GetSaloonsView, CreateSaloonView, EditSaloonView, DeleteSaloonView
-from .views.car_views import GetCarsView, CreateCarView, EditCarView, DeleteCarView, GetSaloonPickerView
+from .views.car_views import GetCarsView, CreateCarView, EditCarView, DeleteCarView
 from .views.reservation_views import GetReservationsView, DeleteReservationView
+
+
 
 from rest_framework.routers import DefaultRouter
 
@@ -20,7 +25,11 @@ router.register(r'brands', BrandViewSet, basename='brand')
 urlpatterns = [
     path('test/', include(router.urls)),
 
+    path('search/cars', SearchCarsView.as_view(), name='search-cars'),
+
     path('get/saloonpicker', GetSaloonPickerView.as_view(), name='get-saloon-picker'),
+    path('get/modelpicker', GetModelPickerView.as_view(), name='get-model-picker'),
+    path('get/brandpicker', GetBrandPickerView.as_view(), name='get-brand-picker'),
 
     path('get/saloons', GetSaloonsView.as_view(), name='get-saloons'),
     path('create/saloon', CreateSaloonView.as_view(), name='create-saloon'),

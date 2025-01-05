@@ -30,6 +30,7 @@ class Worker(models.Model):
 class Car(models.Model):
     price = models.DecimalField(max_digits=10, decimal_places=2)
     availability = models.BooleanField(default=True)
+    description = models.CharField(max_length=1000, null=True, blank=True)
     model = models.ForeignKey('Model', on_delete=models.CASCADE)
     saloon = models.ForeignKey('Saloon', on_delete=models.CASCADE, blank=True, null=True)
     def __str__(self):
