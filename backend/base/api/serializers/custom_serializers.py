@@ -97,6 +97,24 @@ class ReservationDataGridSerializer(serializers.ModelSerializer):
     def get_date(self, obj):
         return obj.date.strftime('%d-%m-%Y') if obj.date else None
 
+class CustomUserDataGridSerializer(serializers.ModelSerializer):
+
+    city = serializers.SerializerMethodField()
+    street = serializers.SerializerMethodField()
+    building_number = serializers.SerializerMethodField()
+
+    class Meta:
+        model = CustomUser
+        fields = ['id', 'first_name', 'last_name', 'username', 'email', 'city', 'street', 'building_number', 'is_staff']
+
+    def get_city(self, obj):
+        return obj.address.city if obj.address else None
+    def get_street(self, obj):
+        return obj.address.street if obj.address else None
+    def get_building_number(self, obj):
+        return obj.address.building_number if obj.address else None
+
+
 class CarSearchSerializer(serializers.ModelSerializer):
 
     brand = serializers.SerializerMethodField()

@@ -1,7 +1,7 @@
 from rest_framework import viewsets
 
-from base.models import Saloon, Worker, Car, Reservation, Address, Model, Brand
-from base.api.serializers.model_serializers import SaloonSerializer, WorkerSerializer, CarSerializer, ReservationSerializer, AddressSerializer, ModelSerializer, BrandSerializer
+from base.models import Saloon, Worker, Car, Reservation, Address, Model, Brand, CustomUser
+from base.api.serializers.model_serializers import SaloonSerializer, WorkerSerializer, CarSerializer, ReservationSerializer, AddressSerializer, ModelSerializer, BrandSerializer, CustomUserSerializer
 
 class SaloonViewSet(viewsets.ModelViewSet):
     queryset = Saloon.objects.all()
@@ -30,3 +30,7 @@ class ModelViewSet(viewsets.ModelViewSet):
 class BrandViewSet(viewsets.ModelViewSet):
     queryset = Brand.objects.all()
     serializer_class = BrandSerializer
+
+class UserViewSet(viewsets.ModelViewSet):
+    queryset = CustomUser.objects.all()
+    serializer_class = CustomUserSerializer
