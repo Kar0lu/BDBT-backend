@@ -4,6 +4,7 @@ from . import views
 from .views.model_views import SaloonViewSet, WorkerViewSet, CarViewSet, ReservationViewSet, AddressViewSet, ModelViewSet, BrandViewSet
 from .views.saloon_views import GetSaloonsView, CreateSaloonView, EditSaloonView, DeleteSaloonView
 from .views.car_views import GetCarsView, CreateCarView, EditCarView, DeleteCarView, GetSaloonPickerView
+from .views.reservation_views import GetReservationsView, DeleteReservationView
 
 from rest_framework.routers import DefaultRouter
 
@@ -31,15 +32,15 @@ urlpatterns = [
     path('edit/car', EditCarView.as_view(), name='edit-car'),
     path('delete/car', DeleteCarView.as_view(), name='delete-car'),
 
+    path('get/reservations', GetReservationsView.as_view(), name='get-reservations'),
+    # path('create/reservation', CreateReservationView.as_view(), name='create-reservation'),
+    # path('edit/reservation', EditReservationView.as_view(), name='edit-reservation'),
+    path('delete/reservation', DeleteReservationView.as_view(), name='delete-reservation'),
+
     # path('get/workers', GetSaloonsView.as_view(), name='get-saloons'),
     # path('create/worker', CreateSaloonView.as_view(), name='create-saloon'),
     # path('edit/worker', EditSaloonView.as_view(), name='edit-saloon'),
-    # path('delete/worker', DeleteSaloonView.as_view(), name='delete-saloon'),
-
-    # path('get/reservations', GetSaloonsView.as_view(), name='get-saloons'),
-    # path('create/reservation', CreateSaloonView.as_view(), name='create-saloon'),
-    # path('edit/reservation', EditSaloonView.as_view(), name='edit-saloon'),
-    # path('delete/reservation', DeleteSaloonView.as_view(), name='delete-saloon'),
+    # path('delete/worker', DeleteSaloonView.as_view(), name='delete-saloon')
 
     # path('get/users', GetSaloonsView.as_view(), name='get-saloons'),
     # path('create/user', CreateSaloonView.as_view(), name='create-saloon'),
