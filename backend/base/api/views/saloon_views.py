@@ -2,7 +2,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 
-from base.models import Saloon, Worker, Car, Reservation, Address, Model, Brand
+from base.models import Saloon, Address
 from base.api.serializers.model_serializers import SaloonSerializer
 from base.api.serializers.custom_serializers import SaloonDataGridSerializer
 

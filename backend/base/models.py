@@ -31,7 +31,7 @@ class Car(models.Model):
     price = models.DecimalField(max_digits=10, decimal_places=2)
     availability = models.BooleanField(default=True)
     model = models.ForeignKey('Model', on_delete=models.CASCADE)
-    saloon = models.ForeignKey('Saloon', on_delete=models.CASCADE)
+    saloon = models.ForeignKey('Saloon', on_delete=models.CASCADE, blank=True, null=True)
     def __str__(self):
         return f'{self.model}'
 
