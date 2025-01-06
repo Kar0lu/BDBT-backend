@@ -36,6 +36,7 @@ class CreateCarView(APIView):
         price = data.get('price')
         availability = data.get('availability')
         saloon_id = data.get('saloon', None)
+        description = data.get('description')
 
         # Validate required fields
         if not all([brand_name, model_name, price]):
@@ -61,7 +62,8 @@ class CreateCarView(APIView):
                 price=price,
                 availability=availability,
                 model=model,
-                saloon=saloon
+                saloon=saloon,
+                description=description
             )
 
             # Serialize and return the created Car
