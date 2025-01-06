@@ -1,14 +1,16 @@
 from django.urls import path, include
 from . import views
 
-from .views.model_views import SaloonViewSet, WorkerViewSet, CarViewSet, ReservationViewSet, AddressViewSet, ModelViewSet, BrandViewSet, UserViewSet
-from .views.picker_views import  GetSaloonPickerView, GetBrandPickerView, GetModelPickerView, GetWorkerPickerView
-from .views.search_views import SearchCarsView
+from .views.admin_model_views import SaloonViewSet, WorkerViewSet, CarViewSet, ReservationViewSet, AddressViewSet, ModelViewSet, BrandViewSet, UserViewSet
+from .views.admin_picker_views import  GetSaloonPickerView, GetBrandPickerView, GetModelPickerView, GetWorkerPickerView
+from .views.admin_search_views import SearchCarsView
 
-from .views.saloon_views import GetSaloonsView, CreateSaloonView, EditSaloonView, DeleteSaloonView
-from .views.car_views import GetCarsView, CreateCarView, EditCarView, DeleteCarView
-from .views.reservation_views import GetReservationsView, EditReservationView, DeleteReservationView
-from .views.user_views import GetUsersView, CreateUserView, EditUserView, DeleteUserView
+from .views.user_reservation_views import GetUserReservationsView, DeleteUserReservationView, CreateUserReservationView
+
+from .views.admin_saloon_views import GetSaloonsView, CreateSaloonView, EditSaloonView, DeleteSaloonView
+from .views.admin_car_views import GetCarsView, CreateCarView, EditCarView, DeleteCarView
+from .views.admin_reservation_views import GetReservationsView, EditReservationView, DeleteReservationView
+from .views.admin_user_views import GetUsersView, CreateUserView, EditUserView, DeleteUserView
 
 
 
@@ -28,6 +30,9 @@ urlpatterns = [
     path('test/', include(router.urls)),
 
     path('search/cars', SearchCarsView.as_view(), name='search-cars'),
+    path('user/get/reservations', GetUserReservationsView.as_view(), name='get-user-reservations'),
+    path('user/delete/reservation', DeleteUserReservationView.as_view(), name='delete-user-reservations'),
+    path('user/create/reservation', CreateUserReservationView.as_view(), name='create-user-reservations'),
 
     path('get/saloonpicker', GetSaloonPickerView.as_view(), name='get-saloon-picker'),
     path('get/modelpicker', GetModelPickerView.as_view(), name='get-model-picker'),
