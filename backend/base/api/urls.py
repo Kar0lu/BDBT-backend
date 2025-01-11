@@ -6,6 +6,7 @@ from .views.admin_picker_views import  GetSaloonPickerView, GetBrandPickerView, 
 from .views.admin_search_views import SearchCarsView
 
 from .views.user_reservation_views import GetUserReservationsView, DeleteUserReservationView, CreateUserReservationView
+from .views.user_reservation_info import GetUserReservationInfoView
 
 from .views.admin_saloon_views import GetSaloonsView, CreateSaloonView, EditSaloonView, DeleteSaloonView
 from .views.admin_car_views import GetCarsView, CreateCarView, EditCarView, DeleteCarView
@@ -33,6 +34,7 @@ urlpatterns = [
     path('user/get/reservations', GetUserReservationsView.as_view(), name='get-user-reservations'),
     path('user/delete/reservation', DeleteUserReservationView.as_view(), name='delete-user-reservations'),
     path('user/create/reservation', CreateUserReservationView.as_view(), name='create-user-reservations'),
+    path('user/get/info', GetUserReservationInfoView.as_view(), name='get-user-reservation-info'),
 
     path('get/saloonpicker', GetSaloonPickerView.as_view(), name='get-saloon-picker'),
     path('get/modelpicker', GetModelPickerView.as_view(), name='get-model-picker'),

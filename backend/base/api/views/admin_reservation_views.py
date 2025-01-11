@@ -83,6 +83,7 @@ class EditReservationView(APIView):
 
 class DeleteReservationView(APIView):
     def delete(self, request):
+        print('1')
         try:
             selected_rows = request.data
             if not isinstance(selected_rows, list) or not selected_rows:
@@ -90,8 +91,23 @@ class DeleteReservationView(APIView):
                     {"error": "Request body must be a non-empty array of IDs."},
                     status=status.HTTP_400_BAD_REQUEST,
                 )
+            print('2')
 
-            deleted_count, _ = Reservation.objects.filter(id__in=selected_rows).delete()
+            reservations = Reservation.objects.filter(id__in=selected_rows)
+            if not reservations.exists():
+                return Response(
+                    {"error": "No reservations found with the provided IDs."},
+                    status=status.HTTP_404_NOT_FOUND,
+                )
+            print('3')
+            # Get users associated with the reservations
+            users = set(reservations.values_list('customer', flat=True))
+            print('4')
+            # Update the reservation_deleted flag for those users
+            CustomUser.objects.filter(id__in=users).update(reservation_deleted=True)
+            print('5')
+
+            deleted_count, _ = reservations.delete()
             return Response(
                 {"message": f"{deleted_count} reservations deleted successfully."},
                 status=status.HTTP_200_OK,
